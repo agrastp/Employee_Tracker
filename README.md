@@ -182,3 +182,6 @@ You are required to submit BOTH of the following for review:
 
 - - -
 © 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+
+
+[How to connect Node JS with MySQL Database](https://blogs.perficient.com/2023/08/03/how-to-connect-node-js-with-mysql-database/)
