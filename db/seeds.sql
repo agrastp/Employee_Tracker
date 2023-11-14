@@ -14,7 +14,7 @@ VALUES (5, 'Human Resource Director', 65035, 001),
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES (123, 'John', 'Newman', 4, 654),
-       (345, 'David', 'Host', 5, 432),
+       (345, 'David', 'Host', 5, null),
        (624, 'Ella', 'Greene', 1, 523),
-       (723, 'Rachel', 'Zellner', 3, 735), 
+       (723, 'Rachel', 'Zellner', 3, null), 
        (985, 'Homer', 'Simpson', 2, 237);
