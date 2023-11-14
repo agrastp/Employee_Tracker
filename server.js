@@ -75,7 +75,7 @@ const mainMenu = () => {
 const viewDepartments = () => {
     console.log('Showing all departments...\n');
 
-    connection.query(`SELECT department.id AS id, department.name AS department FROM department`, function (err, results){
+    connection.promise().query(`SELECT department.id AS id, department.name AS department FROM department`, function (err, results){
         if(err) {
             console.log(err);
         }
@@ -92,7 +92,7 @@ const viewAllRoles = () => {
     console.log('Showing all employee roles...\n');
 
 
-    const table = 'SELECT role.id AS id, role.title AS title, role.salary AS salary FROM role JOIN role ON department.name = role.id'
+    const table = 'SELECT role.id, role.title, role.salary AS department FROM role INNER JOIN department ON role.department_id = department.id';
     mainMenu();
 }
 

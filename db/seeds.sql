@@ -6,11 +6,11 @@ VALUES (001, 'Human Resources'),
        (005, 'Sales');
 
 INSERT INTO role (id, title, salary, department_id)
-VALUES (5, 'Human Resource Director', 65.035, 001),
-       (4, 'Computer Tech', 42.098, 002), 
-       (3, 'CEO', 156.987, 003), 
-       (2, 'Accountant', 75.063, 004),
-       (1, 'Sales Manager', 64.762, 005);
+VALUES (5, 'Human Resource Director', 65035, 001),
+       (4, 'Computer Tech', 42098, 002), 
+       (3, 'CEO', 156987, 003), 
+       (2, 'Accountant', 75063, 004),
+       (1, 'Sales Manager', 64762, 005);
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES (123, 'John', 'Newman', 4, 654),
