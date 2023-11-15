@@ -55,7 +55,7 @@ const addAnEmployeeQuestions = [
     },
     {
         type: 'input',
-        name: 'role',     //do we use the same key here as above?
+        name: 'role',    
         message: "What is the employee's role?"
     },
     {
@@ -67,7 +67,7 @@ const addAnEmployeeQuestions = [
 
 const updateAnEmployeeQuestions = [
     {
-        type: 'choice',
+        type: 'input',
         name: 'employee',
         message: "What is the employee's name?",
         choices: ''
