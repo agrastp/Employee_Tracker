@@ -23,10 +23,12 @@ connection.connect((error) => {
     if (error) {
         console.log('Error connecting to MySQL datatebase:', error);
     } else {
-        console.log('Connected to MySQL database!)');
+        console.log('Connected to MySQL database!');
     };
     startProgram();
 });
+
+//Starts the program and calls the Main Menu function to display choices
 
 const startProgram = () => {
     console.log('  ********************************')
@@ -36,6 +38,7 @@ const startProgram = () => {
     console.log('  ********************************')
     mainMenu();
 };
+//Prompts the user of different program choices
 
 const mainMenu = () => {
     inquirer
@@ -63,7 +66,7 @@ const mainMenu = () => {
                     updateAnEmployee()
                     break;
                 case 'Quit':
-                    connection.end()
+                    quit()
                     break;
                 default:
                     connection.end()
@@ -87,8 +90,7 @@ const viewDepartments = () => {
 }
 
 
-//View all Roles presents a table with job title, role id, 
-//the department that role belongs to, and the salary for that role
+//View all Roles presents a table with job title, role id, department, and the salary 
 const viewAllRoles = () => {
 
     connection.query(`SELECT role.id, role.title, role.salary, department.name AS department FROM role INNER JOIN department ON role.department_id = department.id`, function (err, res) {
@@ -102,9 +104,7 @@ const viewAllRoles = () => {
 }
 
 
-//View all employees presents a table showing employee data, including employee ids, 
-//first names, last names, job titles, departments, salaries, and managers that the 
-//employees report to
+//View all employees presents a table showing employee data- ids, names, salary, department, title of role, manager name
 
 //still need to add manager
 const viewAllEmployees = () => {
@@ -118,8 +118,8 @@ const viewAllEmployees = () => {
     mainMenu();
 }
 
-//Add a department prompts the user to enter the name of the department 
-//and that department is added to the database
+//Add a department prompts the user to enter the name of a new department to add to database
+
 const addDepartment = () => {
     inquirer.prompt(addDepartmentQuestions)
         .then(response => {
@@ -137,8 +137,7 @@ const addDepartment = () => {
 
 
 
-//Add a role prompts the user to enter the name, salary, and department for 
-//the role and that role is added to the database
+//Add a role prompts the user to enter the name, salary, and department for the new role
 
 const addARole = () => {
     connection.query(`SELECT * FROM department`, function (err, res) {
@@ -163,8 +162,9 @@ const addARole = () => {
 })
 }
 
-//Add an employee prompts the user to enter the employee’s first name, last name, role, 
-//and manager, and that employee is added to the database
+//Add an employee prompts the user to enter the employee’s first name, last name, role, and manager for new employee
+
+//Need to add manager
 
 const addAnEmployee = () => {
     connection.query(`SELECT * FROM role`, function (err, res) {
@@ -189,8 +189,9 @@ const addAnEmployee = () => {
 })
 }
 
-//Update an employee role prompts the user to select an employee to 
-//update and their new role and this information is updated in the database 
+//Update an employee prompts the user to select an employee to update their role
+
+//prompts work, but does not update the role
 
 const updateAnEmployee = () => {
     connection.query(`SELECT * FROM employee`, function (err, res) {
@@ -215,6 +216,8 @@ const updateAnEmployee = () => {
 
         })
     });
-}
+};
+
+const quit = () => connection.end();
 
 
