@@ -124,11 +124,13 @@ const viewAllEmployees = () => {
 const addDepartment = () => {
     inquirer.prompt(addDepartmentQuestions)
         .then(response => {
-            const sql = `INSERT INTO department (department) VALUES ?`;
+            const sql = `INSERT INTO department (name) VALUES (?)`;
             connection.query(sql, [response.department], function (err, res) {
-                if (err) throw error;
-                console.log('Updated departments...\n');
-                console.table(res);
+                if (err) {
+                    console.log(err);
+                };
+                console.log('Add a department...\n');
+                viewDepartments();
             });
             mainMenu();
         });
@@ -140,12 +142,19 @@ const addDepartment = () => {
 //the role and that role is added to the database
 
 const addARole = () => {
-    inquirer
-        .prompt(addRoleQuestions);
-
-    mainMenu()
+    inquirer.prompt(addRoleQuestions)
+    .then(response => {
+        const sql = `INSERT INTO role (role, salary, department_id) VALUES (? ? ?)`;
+       connection.query(sql, [response.role, response.salary, response.department], function (err, res) {
+            if (err) {
+                console.log(err);
+            };
+            console.log('Added a role...\n');
+            viewAllRoles();
+        });
+        mainMenu();
+    });
 }
-
 
 //Add an employee prompts the user to enter the employee’s first name, last name, role, 
 //and manager, and that employee is added to the database
