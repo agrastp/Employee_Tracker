@@ -7,8 +7,7 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 //import inquirer questions from questions.js
-const { mainMenuQuestions, addDepartmentQuestions, addRoleQuestions,
-    addAnEmployeeQuestions, updateAnEmployeeQuestions } = require("./questions");
+const { mainMenuQuestions, addDepartmentQuestions, addAnEmployeeQuestions, addRoleQuestions, updateAnEmployeeQuestions } = require("./questions");
 
 
 
@@ -64,7 +63,7 @@ const mainMenu = () => {
                     updateAnEmployee()
                     break;
                 case 'Quit':
-                    quit()
+                    connection.end()
                     break;
                 default:
                     connection.end()
@@ -142,42 +141,80 @@ const addDepartment = () => {
 //the role and that role is added to the database
 
 const addARole = () => {
-    inquirer.prompt(addRoleQuestions)
+    connection.query(`SELECT * FROM department`, function (err, res) {
+        if (err) {
+            console.log(err);
+        }
+        let departments = [];
+        res.forEach((department) => {departments.push({name: department.name, value: department.id}) });
+
+     addRoleQuestions(departments)
     .then(response => {
-        const sql = `INSERT INTO role (role, salary, department_id) VALUES (? ? ?)`;
-       connection.query(sql, [response.role, response.salary, response.department], function (err, res) {
+        const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
+        connection.query(sql, [response.title, response.salary, response.department], function (err, res) {
             if (err) {
                 console.log(err);
             };
-            console.log('Added a role...\n');
+            console.log(`Added a role...\n`);
             viewAllRoles();
         });
         mainMenu();
     });
+})
 }
 
 //Add an employee prompts the user to enter the employee’s first name, last name, role, 
 //and manager, and that employee is added to the database
 
 const addAnEmployee = () => {
-    inquirer
-        .prompt(addAnEmployeeQuestions);
+    connection.query(`SELECT * FROM role`, function (err, res) {
+        if (err) {
+            console.log(err);
+        }
+        let roles = [];
+        res.forEach((role) => {roles.push({name: role.title, value: role.id}) });
 
-    mainMenu()
+    addAnEmployeeQuestions(roles)
+    .then(response => {
+        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
+        connection.query(sql, [response.first_name, response.last_name, response.role, response.manager.id], function (err, res) {
+            if (err) {
+                console.log(err);
+            };
+            console.log(`Added an employee...\n`);
+            viewAllEmployees();
+        });
+        mainMenu();
+    });
+})
 }
-
-
 
 //Update an employee role prompts the user to select an employee to 
 //update and their new role and this information is updated in the database 
 
 const updateAnEmployee = () => {
-    inquirer
-        .prompt(updateAnEmployeeQuestions);
+    connection.query(`SELECT * FROM employee`, function (err, res) {
+        if (err) {
+            console.log(err);
+        }
+        let employees = [];
+        res.forEach((employee) => {employees.push({name: employee.first_name + " " + employee.last_name, value: employee.id}) 
+    });
 
-    mainMenu()
+    updateAnEmployeeQuestions (employees)
+        .then(response => {
+            const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
+            connection.query(sql, [response.role_id], function (err, res) {
+                if (err) {
+                    console.log(err);
+                };
+                console.log(`Updated an employee...\n`);
+                viewAllEmployees();
+            });
+            mainMenu();
+
+        })
+    });
 }
 
-//Quit Application
 
-const quit = () => connection.end();
