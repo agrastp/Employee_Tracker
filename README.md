@@ -5,6 +5,10 @@
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <br>
   This is a Command Line Application that uses MySQL and Inquirer to interact with an employee database.  When the program starts, the user is given prompts as to what action would like to be taken(View Departments, View Roles, View Employees, Add a Role, Add an Employee, or Update an Employee's role).  Depending on the selection, you are either provided a table with the selected information or you are asked more prompting questions before a table is provided.  <br>
 
+  ![Employee Tracker](./Images/Employee%20Tracker.png)
+
+  [Application Walk-through](https://drive.google.com/file/d/1IhMqAb96sAOt7rInnTDIC4ym_Kp6yQgg/view)
+
 ----------------------
 
   ## Table of Contents 
