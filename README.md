@@ -39,9 +39,11 @@
   
   1. [How to connect Node JS with MySQL Database](https://blogs.perficient.com/2023/08/03/how-to-connect-node-js-with-mysql-database/)
 
-  2. BCS was a HUGE support
+  2. Worked with various tutors through BCS 
 
-  3. MySQL documentation
+  3. [MySQL documentation](https://www.npmjs.com/package/mysql2#documentation)
+
+  4. My tutor Alex Gonzalaz 
 
 ----------------------
 

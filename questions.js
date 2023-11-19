@@ -64,27 +64,23 @@ const addAnEmployeeQuestions = (roles) => {
             name: 'role',
             message: "What is the employee's role?",
             choices: roles
-        },
-        {
-            type: 'input',
-            name: 'manager',
-            message: "Who is the employee's manager?"
         }
     ])
 };
 
-const updateAnEmployeeQuestions = (employees) => {
+const updateAnEmployeeQuestions = (employees, roles) => {
     return inquirer.prompt([
         {
             type: 'list',
-            name: 'employee',
+            name: 'employee_id',
             message: "What is the employee's name?",
             choices: employees
         },
         {
-            type: 'input',
-            name: 'role',
+            type: 'list',
+            name: 'role_id',
             message: "What is the employee's new role?",
+            choices: roles
         }
     ]
     )
